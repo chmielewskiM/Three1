@@ -1,0 +1,38 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100vh;
+  font-family: "Poppins";
+}
+
+.webgl {
+  position: fixed;
+  top: 0;
+  left: 0;
+  outline: none;
+}
+
+body #container {
+  display: none !important;
+}
+
+img {
+  width: 128px;
+  height: 128px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: 1;
+}
+
+button.change {
+  display: none;
+}
+
+span {
+  display: none;
+}

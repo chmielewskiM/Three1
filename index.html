@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ThreeJS Starter</title>
+    <script
+      type="module"
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.3/TweenMax.min.js"
+    ></script>
+    <script
+      type="module"
+      src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.js"
+    ></script>
+    <script
+      type="module"
+      src="https://threejsfundamentals.org/threejs/resources/threejs/r122/examples/jsm/loaders/GLTFLoader.js"
+    ></script>
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/three@0.131.3/examples/js/math/MeshSurfaceSampler.js"
+    ></script>
+    <script
+      type="module"
+      src="https://cdn.jsdelivr.net/npm/three@0.121.1/examples/jsm/controls/OrbitControls.js"
+    ></script>
+    <!-- <script src="script.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+  </head>
+
+  <body>
+    <div id="container"></div>
+  </body>
+  <script type="x-shader/x-vertex" id="vertex_shader">
+
+    precision mediump float;
+    precision mediump int;
+
+    uniform float time;
+    attribute float aColor;
+
+    varying vec3 vPosition;
+    varying vec4 vColor;
+    varying vec2 vUv;
+
+    void main()	{
+      vUv = uv;
+      vec4 modelPosition = modelViewMatrix * vec4(position, 0.7);
+
+      vPosition = position;
+      vColor = vec4(sin(time) * 0.5, 0.5 * cos(time * aColor), 0.5 * sin(time / aColor), 1);
+      gl_PointSize = float(3);
+      gl_Position = projectionMatrix * modelViewMatrix * modelPosition;
+    }
+  </script>
+  <script type="x-shader/x-fragment" id="fragment_shader">
+     void main(void)
+     {
+         vec2 pos = mod(gl_FragCoord.xy, vec2(50.0)) - vec2(25.0);
+         float dist_squared = dot(pos, pos);
+     
+         gl_FragColor = (dist_squared < 400.0) 
+             ? vec4(.90, .90, .90, 1.0)
+             : vec4(.20, .20, .40, 1.0);
+     }
+  </script>
+</html>
